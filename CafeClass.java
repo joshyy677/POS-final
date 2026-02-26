@@ -15,7 +15,7 @@ public class CafeClass {
 
             if (!input.hasNextInt()) {
                 System.out.print("  ! Invalid input! Numbers only: ");
-                input.next(); // removes wrong input
+                input.next();
                 continue;
             }
 
@@ -76,8 +76,6 @@ public class CafeClass {
     }
 
     public void addOrder() {
-
-        // ===== SHOW CATEGORIES FIRST =====
         System.out.println();
         System.out.println("  +=================================+");
         System.out.println("  |         SELECT CATEGORY         |");
@@ -96,7 +94,6 @@ public class CafeClass {
             catChoice = getValidInt();
         }
 
-        // ===== SHOW ITEMS OF SELECTED CATEGORY =====
         CategoryClass selectedCategory = categories[catChoice - 1];
 
         System.out.println();
@@ -125,7 +122,6 @@ public class CafeClass {
             qty = getValidInt();
         }
 
-        // ===== CONFIRMATION =====
         String selectedName = selectedCategory.items[itemChoice - 1].name;
 
         System.out.println();
@@ -140,7 +136,6 @@ public class CafeClass {
 
         if (confirm == 1) {
 
-            // Calculate global index for orderQty
             int globalIndex = 0;
 
             for (int i = 0; i < catChoice - 1; i++) {
@@ -167,14 +162,12 @@ public class CafeClass {
             }
         }
 
-        // If cart is empty, print message and return to menu
         if (hasOrders == false) {
             System.out.println();
             System.out.println("  ! No items in your cart.");
             return;
         }
 
-        // Display the cart once
         System.out.println();
         System.out.println("  +=================================+");
         System.out.println("  |           YOUR CART             |");
@@ -189,23 +182,18 @@ public class CafeClass {
             }
         }
         System.out.println("  +=================================+");
-
-        // Ask for item to remove
         System.out.print("  Select Item to Remove (Enter the number): ");
         int itemChoice = getValidInt();
 
-        // Loop if the item number is invalid or not in cart
         while (itemChoice < 1 || itemChoice > orderQty.length|| orderQty[itemChoice - 1] == 0) {
             System.out.println("  ! Invalid. Try again.");
             System.out.print("  Select Item to Remove (Enter the number): ");
             itemChoice = getValidInt();
         }
 
-        // Ask for quantity to remove
         System.out.print("  Enter Quantity to Remove: ");
         int removeQty = getValidInt();
 
-        // Loop if the quantity is invalid
         while (removeQty < 1 || removeQty > orderQty[itemChoice - 1]) {
             System.out.println("  ! Invalid. Try again.");
             System.out.print("  Enter Quantity to Remove: ");
@@ -226,7 +214,6 @@ public class CafeClass {
             }
         }
 
-        // Confirmation before removing
         System.out.println();
         System.out.println("  +---------------------------------+");
         System.out.println("  |        CONFIRM REMOVAL          |");
@@ -295,7 +282,6 @@ public class CafeClass {
             }
         }
 
-        // If no orders, print message and return to menu
         if (total == 0) {
             System.out.println();
             System.out.println("  ! No items in your cart.");
@@ -307,7 +293,6 @@ public class CafeClass {
         System.out.println("  |            CHECKOUT             |");
         System.out.println("  +=================================+");
 
-        // Show cart items before asking for cash
         itemIndex = 0;
         for (int i = 0; i < categories.length; i++) {
             for (int j = 0; j < categories[i].items.length; j++) {
@@ -326,7 +311,6 @@ public class CafeClass {
         System.out.print("  Enter Cash Amount: P");
         double cash = getValidDouble();
 
-        // Loop if cash is not enough
         while (cash < total) {
             System.out.println("  ! Not enough cash. Try again.");
             System.out.print("  Enter Cash Amount: P");
@@ -342,7 +326,6 @@ public class CafeClass {
         System.out.println("  |  Payment Successful! Thank you! |");
         System.out.println("  +---------------------------------+");
 
-        // Reset all orders after successful checkout
         for (int i = 0; i < orderQty.length; i++) {
             orderQty[i] = 0;
         }
